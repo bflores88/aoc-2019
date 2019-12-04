@@ -8,12 +8,10 @@ const rl = readline.createInterface({
 });
 
 rl.on("line", function(cmd) {
-  // something
   inputs.push(cmd.split(","));
 });
 
 rl.on("close", function() {
-  // something
   findIntersection(inputs);
   process.exit(0);
 });
@@ -44,20 +42,7 @@ function findIntersection(arr) {
     const traversal = Number(line2[j].substring(1));
 
     for (let k = 0; k < traversal; k++) {
-      switch (direction) {
-        case "U":
-          line2start[1] += 1;
-          break;
-        case "D":
-          line2start[1] -= 1;
-          break;
-        case "R":
-          line2start[0] += 1;
-          break;
-        default:
-          line2start[0] -= 1;
-          break;
-      }
+      traverseCoordinate(line2start, direction);
 
       line2steps += 1;
 
@@ -81,20 +66,7 @@ function findIntersection(arr) {
 
 function traversalHelper(direction, traversal, coordinate, map, steps) {
   for (let i = 0; i < traversal; i++) {
-    switch (direction) {
-      case "U":
-        coordinate[1] += 1;
-        break;
-      case "D":
-        coordinate[1] -= 1;
-        break;
-      case "R":
-        coordinate[0] += 1;
-        break;
-      default:
-        coordinate[0] -= 1;
-        break;
-    }
+    traverseCoordinate(coordinate, direction);
 
     steps[0] += 1;
 
@@ -104,5 +76,22 @@ function traversalHelper(direction, traversal, coordinate, map, steps) {
         steps[0]
       ];
     }
+  }
+}
+
+function traverseCoordinate(coordinate, direction) {
+  switch (direction) {
+    case "U":
+      coordinate[1] += 1;
+      break;
+    case "D":
+      coordinate[1] -= 1;
+      break;
+    case "R":
+      coordinate[0] += 1;
+      break;
+    default:
+      coordinate[0] -= 1;
+      break;
   }
 }

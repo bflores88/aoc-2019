@@ -8,7 +8,6 @@ const rl = readline.createInterface({
 const spaceMap = [];
 
 rl.on("line", function(cmd) {
-  // do something;
   spaceMap.push(cmd);
 });
 
@@ -18,19 +17,18 @@ rl.on("close", function() {
 });
 
 function universalOrbitMap(spaceMap) {
-  // Build a hash map!
   const spaceSystem = {};
 
   spaceMap.forEach(path => {
     let planetOrbited;
     let planetOrbiting;
-    let start = 0;
 
     for (let i = 0; i < path.length; i++) {
       if (path[i] === ")") {
-        planetOrbited = path.slice(start, i);
+        planetOrbited = path.slice(0, i);
         planetOrbiting = path.slice(i + 1);
         spaceSystem[planetOrbiting] = planetOrbited;
+        break;
       }
     }
   });
